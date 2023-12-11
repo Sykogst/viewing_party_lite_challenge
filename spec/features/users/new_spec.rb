@@ -33,6 +33,30 @@ RSpec.describe 'new user', type: :feature do
       expect(page).to have_content('Successfully Added New User')
     end
 
+    # Now includes password and password_confirmation SAD PATH 1
+    it 'They fill in form with information, email (unique), submit, MISSING: password, password_confirmation, redirects to user register page, SAD path' do
+      fill_in 'Name', with: "Sammy"
+      fill_in 'Email', with: "sammy@email.com"
+      fill_in 'Password', with: ""
+      fill_in 'Password Confirmation', with: ""
+      click_button 'Create New User'
+
+      expect(current_path).to eq(register_user_path)
+      expect(page).to have_content("Error: Password can't be blank, Password confirmation can't be blank")
+    end
+
+    # Now includes password and password_confirmation SAD PATH 2
+    it 'They fill in form with information, email (unique), submit, Not matching: password, password_confirmation, redirects to user register page, SAD path' do
+      fill_in 'Name', with: "Sammy"
+      fill_in 'Email', with: "sammy@email.com"
+      fill_in 'Password', with: "pw123"
+      fill_in 'Password Confirmation', with: "password123"
+      click_button 'Create New User'
+
+      expect(current_path).to eq(register_user_path)
+      expect(page).to have_content("Error: Password confirmation doesn't match")
+    end
+
     it 'They fill in form with information, email (non-unique), submit, redirects to user show page' do
       fill_in 'Name', with: "Sammy"
       fill_in 'Email', with: "sam_t@email.com"
