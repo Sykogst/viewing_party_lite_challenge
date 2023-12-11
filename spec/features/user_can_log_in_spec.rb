@@ -6,14 +6,14 @@ RSpec.describe 'Log in page using credentials: email and password', type: :featu
     visit "/"
   end
 
-  it 'Allows user click link and go to login page', :vcr do
+  it 'Allows user click link and go to login page' do
     expect(page).to have_link('Log In')
 
     click_link 'User Log In'
     expect(current_path).to eq("/login")
   end
 
-  it 'User can log in with good credentials', :vcr do
+  it 'User can log in with good credentials' do
     click_link 'User Log In'
     
     fill_in :email, with: 'sam@email.com'
@@ -28,7 +28,7 @@ RSpec.describe 'Log in page using credentials: email and password', type: :featu
     expect(page).to have_content("Log Out")
   end
 
-  it 'User cannot log in with bad credentials, wrong password', :vcr do
+  it 'User cannot log in with bad credentials, wrong password' do
     visit '/login'
     
     fill_in :email, with: 'sam@email.com'
@@ -40,7 +40,7 @@ RSpec.describe 'Log in page using credentials: email and password', type: :featu
     expect(page).to have_content("Sorry, your password is incorrect.")
   end
 
-  it 'User cannot log in with bad credentials, email does not exist', :vcr do
+  it 'User cannot log in with bad credentials, email does not exist' do
     visit '/login'
     
     fill_in :email, with: 'sammy@email.com'
@@ -52,7 +52,7 @@ RSpec.describe 'Log in page using credentials: email and password', type: :featu
     expect(page).to have_content("Sorry, your email was not found.")
   end
 
-  it 'User cannot log in with bad credentials, email does not exist, pw wrong', :vcr do
+  it 'User cannot log in with bad credentials, email does not exist, pw wrong' do
     visit '/login'
     
     fill_in :email, with: 'sammy@email.com'
