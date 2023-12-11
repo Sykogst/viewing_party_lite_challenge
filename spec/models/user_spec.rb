@@ -25,5 +25,11 @@ RSpec.describe User, type: :model do
       expect(user).to_not have_attribute(:password)
       expect(user.password_digest).to_not eq('password123')
     end
+
+    it 'does not create user with non-matching password and password confirmation' do
+      user = User.new(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'differentpassword')
+      expect(user.save).to be_falsey
+      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
   end
 end

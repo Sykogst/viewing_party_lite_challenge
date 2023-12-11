@@ -22,11 +22,15 @@ class UsersController < ApplicationController
 
   def login_user
     user = User.find_by(email: params[:email])
+    user[:email] = user[:email].downcase if user
 
-    if user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}!"
       redirect_to user_discover_index_path(user)
+    else
+      flash[:error] = user ? "Sorry, your password is incorrect." : "Sorry, your email was not found."
+      render :login_form
     end
   end
 

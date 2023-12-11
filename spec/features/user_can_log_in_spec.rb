@@ -20,11 +20,47 @@ RSpec.describe 'Log in page using credentials: email and password', type: :featu
     fill_in :password, with: 'pw123'
 
     click_on "Log In"
-save_and_open_page
+
     expect(current_path).to eq("/users/#{@user.id}/discover")
     expect(page).to have_content("Welcome, #{@user.name}!")
 
     expect(page).to_not have_content("User Log In")
     expect(page).to have_content("Log Out")
+  end
+
+  it 'User cannot log in with bad credentials, wrong password', :vcr do
+    visit '/login'
+    
+    fill_in :email, with: 'sam@email.com'
+    fill_in :password, with: 'badpassword'
+
+    click_on "Log In"
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Sorry, your password is incorrect.")
+  end
+
+  it 'User cannot log in with bad credentials, email does not exist', :vcr do
+    visit '/login'
+    
+    fill_in :email, with: 'sammy@email.com'
+    fill_in :password, with: 'pw123'
+
+    click_on "Log In"
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Sorry, your email was not found.")
+  end
+
+  it 'User cannot log in with bad credentials, email does not exist, pw wrong', :vcr do
+    visit '/login'
+    
+    fill_in :email, with: 'sammy@email.com'
+    fill_in :password, with: 'pw123ssss'
+
+    click_on "Log In"
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Sorry, your email was not found.")
   end
 end
