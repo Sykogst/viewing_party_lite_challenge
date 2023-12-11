@@ -16,6 +16,7 @@ RSpec.describe User, type: :model do
 
   describe 'Authentication additions' do
     it { should validate_presence_of :password }
+    it { should validate_presence_of :password_confirmation }
     it { should validate_presence_of(:password_digest) }
     it { should have_secure_password }
 

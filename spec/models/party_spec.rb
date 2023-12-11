@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Party, type: :model do
   before(:each) do
-    @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com')
-    @user_2 = User.create!(name: 'Tommy', email: 'Tommy_t@email.com')
+    @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com', password: 'pw123', password_confirmation: 'pw123')
+    @user_2 = User.create!(name: 'Tommy', email: 'Tommy_t@email.com', password: 'pw123', password_confirmation: 'pw123')
     @party = Party.create(movie_id: 238, movie_title: "The Godfather", date: "2023-12-01", start_time: "07:25", image_path: "image.godfather.path", duration: 175)
     UserParty.create!(user_id: @user_1.id, party_id: @party.id, host: true)
     UserParty.create!(user_id: @user_2.id, party_id: @party.id, host: false)
