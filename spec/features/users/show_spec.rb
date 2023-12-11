@@ -25,8 +25,8 @@ RSpec.describe 'User Show Page', type: :feature do
 
   describe 'When user visits "/users/:user_id/movies/:movie_id/parties/new"', :vcr do
     before(:each) do
-      @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com')
-      @user_2 = User.create!(name: 'Tommy', email: 'Tommy_t@email.com')
+      @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com', password: 'pw123', password_confirmation: 'pw123')
+      @user_2 = User.create!(name: 'Tommy', email: 'Tommy_t@email.com', password: 'pw123', password_confirmation: 'pw123')
   
       @movie_facade = MoviesFacade.new.find_movie(238)
 

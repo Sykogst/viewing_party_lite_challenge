@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'landing page, welcome index', type: :feature do
   describe 'When a user visits the root path "/"' do
     before(:each) do
-      @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com')
-      @user_2 = User.create!(name: 'Tommy', email: 'tommy123@email.com')
+      @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com', password: 'pw123', password_confirmation: 'pw123')
+      @user_2 = User.create!(name: 'Tommy', email: 'tommy123@email.com', password: 'pw123', password_confirmation: 'pw123')
 
       visit landing_path
     end

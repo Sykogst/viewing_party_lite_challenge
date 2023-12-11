@@ -13,4 +13,17 @@ RSpec.describe User, type: :model do
     it { should have_many :user_parties }
     it { should have_many(:parties).through(:user_parties) }
   end
+
+  describe 'Authentication additions' do
+    it { should validate_presence_of :password }
+    it { should validate_presence_of :password_confirmation }
+    it { should validate_presence_of(:password_digest) }
+    it { should have_secure_password }
+
+    it 'create user with valid information' do
+      user = User.create(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'password123')
+      expect(user).to_not have_attribute(:password)
+      expect(user.password_digest).to_not eq('password123')
+    end
+  end
 end

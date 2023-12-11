@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'new user', type: :feature do
   describe 'When user visits "/register"' do
     before(:each) do
-      @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com')
+      @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com', password: 'pw123', password_confirmation: 'pw123')
 
       visit register_user_path
     end
@@ -20,9 +20,12 @@ RSpec.describe 'new user', type: :feature do
       expect(page).to have_selector(:link_or_button, 'Create New User')    
     end
 
-    it 'They fill in form with information, email (unique), submit, redirects to user show page' do
+    # Now includes password and password_confirmation
+    it 'They fill in form with information, email (unique), submit, password, password_confirmation, redirects to user show page, HAPPY path' do
       fill_in 'Name', with: "Sammy"
       fill_in 'Email', with: "sammy@email.com"
+      fill_in 'Password', with: "password123"
+      fill_in 'Password Confirmation', with: "password123"
       click_button 'Create New User'
 
       new_user = User.last
