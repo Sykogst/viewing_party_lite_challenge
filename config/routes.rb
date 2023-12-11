@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   end
 
   get '/login', to: 'users#login_form'
-  post '/login', to: 'users#login'
+  post '/login', to: 'users#login_user'
 end
