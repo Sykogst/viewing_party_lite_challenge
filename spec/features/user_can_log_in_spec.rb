@@ -51,4 +51,16 @@ RSpec.describe 'Log in page using credentials: email and password', type: :featu
     expect(current_path).to eq("/login")
     expect(page).to have_content("Sorry, your email was not found.")
   end
+
+  it 'User cannot log in with bad credentials, email does not exist, pw wrong', :vcr do
+    visit '/login'
+    
+    fill_in :email, with: 'sammy@email.com'
+    fill_in :password, with: 'pw123ssss'
+
+    click_on "Log In"
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Sorry, your email was not found.")
+  end
 end
