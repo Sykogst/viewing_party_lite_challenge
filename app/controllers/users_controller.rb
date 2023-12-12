@@ -34,6 +34,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def logout
+    session[:user_id] = nil
+    flash[:notice] = "Logged out successfully"
+    redirect_to landing_path
+  end
+
   private
 
   def user_params
