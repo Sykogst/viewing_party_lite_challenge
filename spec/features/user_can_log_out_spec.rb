@@ -21,6 +21,7 @@ RSpec.describe 'Log in page using credentials: email and password', type: :featu
 
     expect(current_path).to eq("/")
     expect(page).to have_content("User Log In")
+    expect(page).to have_content("Logged out successfully")
     expect(page).to_not have_content("Log Out")
   end
 end

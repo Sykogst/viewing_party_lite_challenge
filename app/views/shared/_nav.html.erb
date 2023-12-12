@@ -3,7 +3,7 @@
     <ul class="nav navbar-nav pull-right">
       <li><%= link_to 'Home', landing_path, style: 'pull-right' %>
       <% if current_user %>
-        <li><%= link_to "Log Out" %></li>
+        <li><%= link_to "Log Out", logout_path, style: 'pull-right' %></li>
       <% else %>
         <li><%= link_to 'User Log In', login_path, style: 'pull-right' %>
       <% end %>
