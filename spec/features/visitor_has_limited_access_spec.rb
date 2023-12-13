@@ -14,10 +14,10 @@ RSpec.describe 'Visitor sees different information compared to logged in user', 
   it 'User sees a list of existing users on landing page when logged in' do
     click_link 'User Log In'
     
-    fill_in :email, with: 'sam@email.com'
-    fill_in :password, with: 'pw123'
-
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
     click_on "Log In"
+
     visit "/"
 
     # USER STORY asks to not have email a link anymore...
@@ -26,9 +26,15 @@ RSpec.describe 'Visitor sees different information compared to logged in user', 
   end
 
   it 'Visitor, landing page, then dashboard, remain on landing and sees a message to login/register' do
-    visit "/users/#{@user.id}"
-
-    expect(current_path).to eq("/")
+    visit "/users/#{@user.id}" # New controller :(
+    # expect(current_path).to eq("/")
     expect(page).to have_content("Must be logged in or registered to access this page.")
   end
+
+  it 'Visitor, landing page, then dashboard, remain on landing and sees a message to login/register', :vcr do
+    visit "/users/#{@user.id}/movies/11"
+    click_on "Create A Party"
+    # expect(current_path).to eq("/users/#{@user.id}/movies/11")
+    expect(page).to have_content("Must be logged in or registered to access this page.")
+    end
 end

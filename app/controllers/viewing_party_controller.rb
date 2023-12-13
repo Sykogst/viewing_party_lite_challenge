@@ -1,4 +1,6 @@
 class ViewingPartyController < ApplicationController
+  before_action :require_user, only: :new
+
   def new
     @user = User.find(params[:user_id])
     @movie_facade = MoviesFacade.new.find_movie(params[:movie_id])
@@ -24,6 +26,14 @@ class ViewingPartyController < ApplicationController
       if checkbox_value == "1"
         UserParty.create!(user_id: user_id.to_i, party_id: party.id, host: false)
       end
+    end
+  end
+
+  def require_user
+    unless current_user?
+      flash[:alert] = "Must be logged in or registered to access this page."
+      render file: "public/404.html"
+      # redirect_to "/users/#{params[:user_id]}/movies/#{params[:movie_id]}"
     end
   end
 end

@@ -4,6 +4,11 @@ RSpec.describe 'User Show Page', type: :feature do
   describe 'when a user visits the users dashboard' do
     before(:each) do
       @user = create(:user)
+
+      visit login_path
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_on "Log In"
     end
     
     it 'displays the users name and Dashboard on the top of the page' do
@@ -29,6 +34,11 @@ RSpec.describe 'User Show Page', type: :feature do
       @user_2 = User.create!(name: 'Tommy', email: 'Tommy_t@email.com', password: 'pw123', password_confirmation: 'pw123')
   
       @movie_facade = MoviesFacade.new.find_movie(238)
+
+      visit login_path
+      fill_in :email, with: @user_1.email
+      fill_in :password, with: @user_1.password
+      click_on "Log In"
 
       visit  "/users/#{@user_1.id}/movies/#{@movie_facade.id}/viewing_party/new"
     end
