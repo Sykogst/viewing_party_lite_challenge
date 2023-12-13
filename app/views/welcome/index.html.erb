@@ -4,7 +4,9 @@
 
 <%= button_to 'Create New User', register_user_path, method: :get %>
 
-<h2>Existing Users</h2>
-<% @users.each do |user| %>
-  </p><%= link_to user.email, user_path(user.id) %></p>
+<% if session[:user_id] %>
+  <h2>Existing Users</h2>
+  <% @users.each do |user| %>
+    </p><%= link_to user.email, user_path(user.id) %></p>
+  <% end %>
 <% end %>
