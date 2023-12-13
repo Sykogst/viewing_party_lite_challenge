@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_user, only: :show
+
   def show
     @user = User.find(params[:id])
   end
@@ -44,5 +46,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def require_user
+    unless current_user?
+      flash[:alert] = "Must be logged in or registered to access this page."
+      redirect_to landing_path
+    end
   end
 end

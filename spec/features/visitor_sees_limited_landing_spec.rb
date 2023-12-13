@@ -25,10 +25,10 @@ RSpec.describe 'Visitor sees different information compared to logged in user', 
     expect(page).to have_content(@user.email)
   end
 
-  it 'Visitor, landing page, then dashboard, remain on landing and sees a messaget to login/register' do
+  it 'Visitor, landing page, then dashboard, remain on landing and sees a message to login/register' do
     visit "/users/#{@user.id}"
 
     expect(current_path).to eq("/")
-    expect(page).to have_content("Must be logged in or registered")
+    expect(page).to have_content("Must be logged in or registered to access this page.")
   end
 end
