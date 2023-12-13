@@ -49,9 +49,10 @@ class UsersController < ApplicationController
   end
 
   def require_user
-    unless current_user?
+    unless current_user
       flash[:alert] = "Must be logged in or registered to access this page."
-      redirect_to landing_path
+      render file: "public/404.html"
+      # redirect_to landing_path
     end
   end
 end
