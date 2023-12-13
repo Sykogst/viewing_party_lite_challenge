@@ -6,6 +6,11 @@ RSpec.describe 'landing page, welcome index', type: :feature do
       @user_1 = User.create!(name: 'Sam', email: 'sam_t@email.com', password: 'pw123', password_confirmation: 'pw123')
       @user_2 = User.create!(name: 'Tommy', email: 'tommy123@email.com', password: 'pw123', password_confirmation: 'pw123')
 
+      visit login_path
+      fill_in :email, with: @user_1.email
+      fill_in :password, with: @user_1.password
+      click_on "Log In"
+
       visit landing_path
     end
 

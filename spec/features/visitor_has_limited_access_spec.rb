@@ -14,10 +14,10 @@ RSpec.describe 'Visitor sees different information compared to logged in user', 
   it 'User sees a list of existing users on landing page when logged in' do
     click_link 'User Log In'
     
-    fill_in :email, with: 'sam@email.com'
-    fill_in :password, with: 'pw123'
-
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
     click_on "Log In"
+
     visit "/"
 
     # USER STORY asks to not have email a link anymore...
